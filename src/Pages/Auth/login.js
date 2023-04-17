@@ -7,6 +7,8 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 // import Icon from 'react-native-vector-icons/FontAwesome5';
 import React, { useState } from 'react';
@@ -20,13 +22,29 @@ function Login() {
   const dispatch = useDispatch();
   const navigation = useNavigation()
 
+  const login = useSelector((state) => state.Auth_Login)
+
+
   const handleLogin = () => {
     let data = {
       email,
       password
     }
-    dispatch(LoginUser(data, navigation))
-  }
+    if (password.trim() === '' && email.trim() === '') {
+      Alert.alert('Error', 'Masukkan email & password');
+      return;
+    }
+    if (email.trim() === '') {
+      Alert.alert('Error', 'Masukkan email');
+      return;
+    }
+    if (password.trim() === '') {
+      Alert.alert('Error', 'Masukkan password');
+      return;
+    }
+    dispatch(LoginUser(data, navigation));
+  };
+
 
   return (
     <View style={{flex: 1}}>
@@ -57,7 +75,7 @@ function Login() {
         secureTextEntry={true}
         placeholder="Password" />
 
-        <View>
+          <View>
           <TouchableOpacity
             onPress={() => navigation.navigate("ForgotPassword")}>
             <Text
@@ -73,7 +91,10 @@ function Login() {
         </View>
 
         <View style={{marginTop: 30, marginHorizontal: 40}}>
-          <Button title="Login" color="#EFC81A" onPress={handleLogin}/>
+          <Button title="Login" color="#EFC81A" onPress={() => handleLogin()}/>
+          {login.isLoading &&
+            <ActivityIndicator style={{marginTop: 10}} size="large" color="black" />
+          }
         </View>
 
         <View style={styles.registration}>

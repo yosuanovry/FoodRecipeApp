@@ -3,14 +3,16 @@ import {
   Text,
   StyleSheet,
   StatusBar,
-  TextInput,
   Button,
   Image,
-  ScrollView
+  ScrollView,
+  RefreshControl,
+  Alert,
+  ActivityIndicator 
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {GetMenuById, GetMenuByUser, deleteMenu} from '../../Storages/Actions/Menu';
+import { deleteMenu} from '../../Storages/Actions/Menu';
 import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -18,6 +20,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const MyMenu = () => {
   const [datas, setDatas] = useState()
   const isAuth = useSelector(state => state.Auth_Login.data.token);
+  const [refreshing, setRefreshing] = useState(false);
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -30,7 +33,16 @@ const MyMenu = () => {
 
   useEffect(() => {
     getMenuUserData()
-  }, []);
+  }, [onRefresh]);
+  
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+    getMenuUserData().then(() => {
+        setRefreshing(false);
+      });
+    }, 1000);
+  };
 
   const getMenuUserData = async () => {
     var url = `https://puce-victorious-bandicoot.cyclic.app/recipes/my-recipes`;
@@ -49,20 +61,48 @@ const MyMenu = () => {
       });
   };
   
-  const getMenuById = async (id) => {
+  const getMenuByIdDetail = async (id) => {
     navigation.navigate("Detail", {
       id: id
     })
   };
 
-  const deleteMenuId = (id) => {
-    dispatch(deleteMenu(id, isAuth))
-  }
+  const getMenuByIdEdit = async (id) => {
+    navigation.navigate("Edit Menu", {
+      id: id
+    })
+  };
 
 
+  const deleteButtonAlert = (id) =>
+    Alert.alert(
+      'Delete Alert',
+      'Are you sure you want to delete this recipe?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Delete canceled'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () =>
+            dispatch(deleteMenu(id, isAuth)).then(() => {
+              setTimeout(() => {
+                  setRefreshing(true)
+                getMenuUserData().then(() => {
+                  setRefreshing(false)
+                });
+              },2000)
+            }),
+        },
+      ],
+    );
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:'#f7f6f6'}} refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+    }>
     <View style={styles.container}>
       <StatusBar backgroundColor="transparent" translucent={true} />
       <View style={{justifyContent: 'center', marginTop: 50}}>
@@ -73,7 +113,7 @@ const MyMenu = () => {
         {datas?.map((item, index) => (
           
           <View key={index} style={styles.cardContainer}>
-            <TouchableOpacity onPress={() => getMenuById(item.id)}>
+            <TouchableOpacity onPress={() => getMenuByIdDetail(item.id)}>
             <View>
               <Image
                 style={styles.cardImage}
@@ -81,6 +121,7 @@ const MyMenu = () => {
                 />
             </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => getMenuByIdDetail(item.id)}>
             <View
               style={{
                 flexDirection: 'column',
@@ -95,10 +136,11 @@ const MyMenu = () => {
                 {item.category}
               </Text>
             </View>
+            </TouchableOpacity>
             <View style={{flexDirection: 'column', marginStart: 30}}>
-              <Button title="Edit" color="#30C0F3" />
+              <Button title="Edit" color="#30C0F3" onPress={() => getMenuByIdEdit(item.id)}/>
               <View style={{marginTop: 10}}>
-                <Button title="Delete" color="#F57E71" onPress={() => deleteMenuId(item.id)}/>
+                <Button title="Delete" color="#F57E71" onPress={() => deleteButtonAlert(item.id)}/>
               </View>
             </View>
           </View>
@@ -143,5 +185,49 @@ const styles = StyleSheet.create({
     width: 120,
     borderRadius: 20,
     marginHorizontal: 10,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 30,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    backgroundColor:'#EFC81A',
+    borderWidth: 10,
+  },
+  button: {
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#EFC81A',
+  },
+  buttonClose: {
+    backgroundColor: 'tomato',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });

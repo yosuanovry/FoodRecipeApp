@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, StatusBar, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, TextInput, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import axios from "axios";
+import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchMenu } from '../../Storages/Actions/Menu';
 // import { useDispatch,useSelector } from 'react-redux';
 // import { GetMenu } from '../../Storages/Actions/Menu';
 
@@ -14,24 +16,14 @@ const SearchMenu = () => {
   const size2 = 20;
 
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const get_menu = useSelector(state => state.search_menu)
 
   useEffect(() => {
-    getMenuData()
-  },[])
+    dispatch(searchMenu(searchText))
+  },[searchText])
 
-
-  const getMenuData = async () => {
-    var url = `https://puce-victorious-bandicoot.cyclic.app/recipes`;
-    return await axios
-      .get(url)
-      .then((res) => {
-        console.log(res);
-        setDatas(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const searchMenuData= async () => {
     var url = `https://puce-victorious-bandicoot.cyclic.app/recipes?search=` + searchText;
@@ -51,7 +43,7 @@ const SearchMenu = () => {
 
   const getMenuById = async (id) => {
     navigation.navigate("Detail", {
-      id: id
+      id: id 
     })
   };
 
@@ -64,6 +56,7 @@ const SearchMenu = () => {
       <View style={{flexDirection:'row', alignItems:'center'}}>
       <TextInput
           style={styles.searchBar}
+          value={searchText}
           onChangeText={(e) => setSearchText(e)}
           placeholder="Search Pasta, Bread, etc"
         />
@@ -71,8 +64,10 @@ const SearchMenu = () => {
           <Text style={{color:'white', fontWeight:'500'}}>Search</Text>
         </TouchableOpacity>
       </View>
+      <View style={{marginTop: 15,}}>
+    {get_menu.isLoading ? <ActivityIndicator style={{marginTop: 10}} size="large" color="black" /> :   
       <ScrollView>
-    {datas?.map((item, index) => (
+    {get_menu.data?.map((item, index) => (
       <TouchableOpacity onPress={() => getMenuById(item.id)}>
       <View key={index} style={styles.menuContainer}>
         <Image style={styles.image} source={{uri: item.photo}}/>
@@ -85,6 +80,8 @@ const SearchMenu = () => {
       </TouchableOpacity>
     ))}
       </ScrollView>
+}
+      </View>
     </View>
   )
 }
@@ -111,10 +108,12 @@ const styles = StyleSheet.create({
   menuContainer: {
     flexDirection:'row',
     marginHorizontal: 40,
-    marginTop: 30,
-    height: 100,
+    marginTop: 20,
+    height: 120,
     alignItems:'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    backgroundColor:'#EFEFEF',
+    borderRadius: 20,
   },
 
   image: {

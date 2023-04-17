@@ -12,6 +12,11 @@ import SearchMenu from '../Pages/Menu/searchMenu';
 import PopularRecipes from '../Pages/Menu/popularRecipes';
 import DetailMenu from '../Pages/Menu/detailMenu';
 import { useDispatch,useSelector } from 'react-redux';
+import EditMenu from '../Pages/Menu/editMenu';
+import EditProfile from '../Pages/Profile/editProfile';
+import Otp from '../Pages/Auth/otp';
+import Otp2 from '../Pages/Auth/otp2';
+import SplashScreen from '../Pages/Splash/SplashScreen';
 
 const Router = () => {
   const Stack = createStackNavigator();
@@ -21,7 +26,7 @@ const Router = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName="Splash"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
@@ -31,6 +36,9 @@ const Router = () => {
           <Stack.Screen name="Search" component={SearchMenu} />
           <Stack.Screen name="Popular" component={PopularRecipes} />
           <Stack.Screen name="Detail" component={DetailMenu} />
+          <Stack.Screen name="Otp" component={Otp} />
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Otp 2" component={Otp2} />
           <Stack.Screen name="Home" component={BottomTabNavigatorBefore} />
         </Stack.Navigator>
       </NavigationContainer>
@@ -39,7 +47,7 @@ const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Splash"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
@@ -49,6 +57,9 @@ const Router = () => {
         <Stack.Screen name="Search" component={SearchMenu} />
         <Stack.Screen name="Popular" component={PopularRecipes} />
         <Stack.Screen name="Detail" component={DetailMenu} />
+        <Stack.Screen name="Edit Menu" component={EditMenu} />
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Edit Profile" component={EditProfile} />
         <Stack.Screen name="Home" component={BottomTabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

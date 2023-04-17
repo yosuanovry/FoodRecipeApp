@@ -5,10 +5,8 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
   TextInput,
-  useWindowDimensions,
   Image
 } from 'react-native';
 import PopularRecipes from '../../Component/Carousel/PopularRecipes';
@@ -59,24 +57,28 @@ const Home = ({navigation}) => {
 
         <View style={{marginTop: -390, flexDirection: 'row'}}>
         <Text style={styles.headText1}>New Recipes</Text>
-        <TouchableOpacity onPress={() => navigation.push("Detail")}>
         <Text style={{marginStart: 120, marginTop: 5, color:'blue'}}>More info</Text>
-        </TouchableOpacity>
         </View>        
 
 
         <View style={{alignItems:'center'}}>
         <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection:'column', alignItems:'center'}}>
             <Image style={styles.buttonImage} source={require('../../Assets/Auth/soup.png')}/>
-            <Image style={styles.buttonImage} source={require('../../Assets/Auth/fork.png')}/>
-            <Image style={styles.buttonImage} source={require('../../Assets/Auth/seafood.png')}/>
-            <Image style={styles.buttonImage} source={require('../../Assets/Auth/fork.png')}/>
-        </View>
-        <View style={{flexDirection: 'row'}}>
             <Text style={styles.textButtonImage}>Soup</Text>
+          </View>
+          <View style={{flexDirection:'column', alignItems:'center'}}>
+            <Image style={styles.buttonImage} source={require('../../Assets/Auth/fork.png')}/>
             <Text style={styles.textButtonImage}>Chicken</Text>
+          </View>
+          <View style={{flexDirection:'column', alignItems:'center'}}>
+            <Image style={styles.buttonImage} source={require('../../Assets/Auth/seafood.png')}/>
             <Text style={styles.textButtonImage}>Seafood</Text>
+          </View>
+          <View style={{flexDirection:'column', alignItems:'center'}}>
+            <Image style={styles.buttonImage} source={require('../../Assets/Auth/fork.png')}/>
             <Text style={styles.textButtonImage}>Dessert</Text>
+          </View>
         </View>
         </View>
         
@@ -120,14 +122,13 @@ const styles = StyleSheet.create({
 
   buttonImage: {
     marginTop: 20,
-    marginHorizontal: 10,
+    marginHorizontal: 10
   },
 
   textButtonImage: {
     color:'black',
     marginTop:5,
     fontWeight: '700',
-    marginHorizontal: 20,
   },
 
 

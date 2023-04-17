@@ -21,6 +21,8 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
 
+  const register = useSelector((state) => state.AuthReg)
+
   const handleRegister = () => {
     let data = {
       name,

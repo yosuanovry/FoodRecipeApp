@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://puce-victorious-bandicoot.cyclic.app"
+const url = `${process.env.REACT_APP_BASE_URL}`;
 
 
 export const GetMenu = () => async (dispatch,getState) => {
@@ -31,19 +31,22 @@ export const GetMenuByUser = (token) => async (dispatch,getState) => {
     }
 }
 
-export const addMenu = (data,navigate) => async (dispatch)=> {
-    try{
-        dispatch({type:'ADD_MENU_PENDING'})
-        const result = await axios.post(`${url}/recipes`,data,headers)
-        const payload = result.data
-        dispatch({type:'ADD_MENU_SUCCESS',payload})
-        navigate.navigate("Home")
-    } catch(err){
-        dispatch({type:'ADD_MENU_ERROR',payload:err.response.data.message})
-        console.log("addMenu error")
-        console.log(err)
+export const addMenu = (data, token, navigation) => async (dispatch) => {
+    try {
+      dispatch({type : 'ADD_MENU_REQUEST'})
+      const result = await axios.post(`${url}/recipes`, data, {
+          headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization" : `Bearer ${token}`
+          }
+      })
+      dispatch({type: 'ADD_MENU_SUCCESS', payload: result.data.data})
+      navigation.navigate("My Recipes")
+    } catch (err) {
+      console.log(err)
+      dispatch({type: 'ADD_MENU_ERROR'})
     }
-}
+  }
 
 export const deleteMenu = (id, token) => async (dispatch)=> {
     try{
@@ -73,6 +76,41 @@ export const GetMenuById = (id) => async (dispatch,getState) => {
         dispatch({type:"GET_MENU_BYID_ERROR"})
     }
 }
+
+export const editMenu = (id, data, token, navigation) => async (dispatch) => {
+    try {
+      dispatch({type : 'EDIT_MENU_REQUEST'})
+      const result = await axios.put(`${url}/recipes/${id}`, data, {
+          headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization" : `Bearer ${token}`
+          }
+      })
+      dispatch({type: 'EDIT_MENU_SUCCESS', payload: result.data.data})
+      navigation.navigate("My Recipes")
+    } catch (err) {
+      console.log(err)
+      dispatch({type: 'EDIT_MENU_ERROR'})
+    }
+  }
+
+  export const searchMenu = (search='') => async (dispatch) => {
+    try {
+      dispatch({type : 'SEARCH_MENU_REQUEST'})
+      const result = await axios.get(`${url}/recipes?search=${search}`)
+      const menu = result.data.data
+      dispatch({
+        type: 'SEARCH_MENU_SUCCESS', payload: menu} )
+    } catch (error) {
+      dispatch({
+        type: 'SEARCH_MENU_ERROR',
+        payload: error.message
+      })
+    }
+  }
+
+
+  
 
 
 
