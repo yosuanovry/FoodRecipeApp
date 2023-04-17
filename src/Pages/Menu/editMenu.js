@@ -144,7 +144,7 @@ import {
     return (
       <ScrollView>
         <View style={styles.container}>
-          <StatusBar backgroundColor="transparent" translucent={true} />
+          <StatusBar backgroundColor="transparent" translucent={true} barStyle="dark-content" />
           <View style={{marginTop: 50}}>
             {getMenuById?.map((item,index) => (
             <View key={index}>
