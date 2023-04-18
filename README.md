@@ -1,7 +1,7 @@
 # Recipefy Mobile
 
 Recipefy Mobile is a mobile version app from the original Recipefy (website) where users can find listed recipes by data that has been premade (on database), or create their
-own recipes and share it with another user. This website was made with React Native, React Context, Axios, Redux, Node JS (Front-end) || Express JS, and PostgreSQL (Back-end)
+own recipes and share it with another user. This mobile app was made with React Native, React Context, Axios, Redux, Node JS (Front-end) || Express JS, and PostgreSQL (Back-end)
 
 
 ## Packages.json Build dependencies (Node JS)
