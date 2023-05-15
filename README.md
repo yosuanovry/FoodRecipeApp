@@ -1,47 +1,109 @@
-# Recipefy Mobile
+<h1 align="center">Recipefy Mobile</h1>
+<br />
+<div align="center">
+   
+   <img src="https://github.com/yosuanovry/Recipefy-Mobile/blob/master/src/Assets/Auth/barbecue1.png?raw=true" alt="Recipefy" width="20%">
+    
+  <h3 align="center">Recipefy Mobile App</h3>
 
-Recipefy Mobile is a mobile version app from the original Recipefy (website) where users can find listed recipes by data that has been premade (on database), or create their
-own recipes and share it with another user. This mobile app was made with React Native, React Context, Axios, Redux, Node JS (Front-end) || Express JS, and PostgreSQL (Back-end)
+  <p align="center">
+    <a href="https://github.com/yosuanovry/Recipefy-Mobile/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/yosuanovry/Recipefy-Mobile/issues">Request Feature</a>
+  </p>
+</div>
+
+Recipefy Mobile is a mobile version app from the original [Recipefy](https://github.com/yosuanovry/Recipefy_FE_REACT) website app where users can find listed recipes by data that has been premade (on database), or create their own recipes and share it with another user. 
+<br />
+<br />
+**This mobile app was made with React Native, React Context, Axios, Redux, Node JS, Express JS, and PostgreSQL**.
 
 
-## Packages.json Build dependencies (Node JS)
-```bash
-    "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.18.1",
-    "@react-native-picker/picker": "^2.4.9",
-    "@react-navigation/bottom-tabs": "^6.5.7",
-    "@react-navigation/native": "^6.1.6",
-    "@react-navigation/native-stack": "^6.9.12",
-    "@react-navigation/stack": "^6.3.16",
-    "axios": "^1.3.4",
-    "react": "18.1.0",
-    "react-native": "0.70.6",
-    "react-native-dotenv": "^3.4.8",
-    "react-native-gesture-handler": "^2.9.0",
-    "react-native-image-picker": "^5.3.1",
-    "react-native-linear-gradient": "^2.6.2",
-    "react-native-onesignal": "^4.5.1",
-    "react-native-reanimated": "^2.14.4",
-    "react-native-safe-area-context": "^4.5.0",
-    "react-native-screens": "^3.20.0",
-    "react-native-vector-icons": "^9.2.0",
-    "react-redux": "^8.0.5",
-    "react-router-native": "^6.10.0",
-    "redux-logger": "^3.0.6",
-    "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.4.2",
-    "start-android-emulator": "^2.0.0"
-  },
+## Table of Contents
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+      <li>
+      <a href="#releases">Releases</a>
+      <ul>
+        <li><a href="#release-aab">Release AAB</a></li>
+        <li><a href="#release-apk">Release APK</a></li>
+      </ul>
+    </li>
+    <li><a href="#ui-screens">UI Screens</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#developer">Developer</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
+
+## Getting Started
+
+### Prerequisites
+
+Before going to the installation stage there are some software that must be installed first.
+
+- [Node JS](https://nodejs.org/en/download/)
+- [Android Studio Emulator](https://developer.android.com/studio)
+
+## Installation
+If you want to run this project locally, I recommend you to configure the [backend](https://github.com/yosuanovry/Ankasafy_BE) first before going into this frontend repository.
+
+- Clone this repository
+
 ```
+git clone https://github.com/yosuanovry/Recipefy-Mobile.git
+```
+
+- Go to the cloned repository folder
+
+```
+cd Recipefy-Mobile
+```
+
+- Install the required modules in the packages.json
+
+```
+npm i &/ npm install
+```
+
+- Setting up the .env file
+
+```
+REACT_APP_BASE_URL= #URL
+ONESIGNAL_APP_ID= #ONESIGNALAPPID
+REST_API_KEY= #RESTAPIKEY
+```
+
+- Run gradlew clean
+
+```
+npm run gradlew
+```
+
+- Run the project
+
+```
+npm run android
+```
+
 ## Releases
 Released as AAB and APK file using ./gradlew bundleRelease (AAB) && ./gradlew assembleRelease (APK)
+
 #### Release AAB
 - [AAB](https://github.com/yosuanovry/FoodRecipeApp/tree/master/releaseBuild/AAB)
+
 #### Release APK
 - [APK](https://github.com/yosuanovry/FoodRecipeApp/tree/master/releaseBuild/APK)
 
-## Authors
-- [yosuanovry](https://github.com/yosuanovry)
 
 ## UI Screens
 
@@ -60,3 +122,33 @@ Released as AAB and APK file using ./gradlew bundleRelease (AAB) && ./gradlew as
 | Verification Screen                                              
 | --------------------------------------------------------- |
 | ![Register Verification](/PagesScreenCapture/Verification.PNG ) | 
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Developer
+
+<center>
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/yosuanovry">
+          <img width="100" src="https://avatars.githubusercontent.com/u/123917032?v=4" alt="Yosua"><br/>
+          <sub><b>Yosua Novry Susilo </b></sub> <br/>
+        </a>
+      </td>
+  </table>
+</center>
+
+## License
+
+Distributed under the [MIT](/LICENSE) License.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
